@@ -12,7 +12,7 @@ import (
 	"errors"
 	"unsafe"
 
-	"github.com/SakuOtonashi/gosseract/leptonica"
+	"github.com/JahChwen/gosseract/leptonica"
 )
 
 type TessBaseAPI C.TessBaseAPI

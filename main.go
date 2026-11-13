@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/SakuOtonashi/gosseract/leptonica"
-	"github.com/SakuOtonashi/gosseract/tesseract"
+	"github.com/JahChwen/gosseract/leptonica"
+	"github.com/JahChwen/gosseract/tesseract"
 	"github.com/google/uuid"
 )
 
@@ -43,6 +43,9 @@ func (ocr ocrApi) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 		return
 	}
 	v.Language = strings.ToLower(v.Language)
+	if v.Language == "jap" {
+		v.Language = "jpn"
+	}
 
 	image, err := leptonica.PixRead(v.ImagePath)
 	if err != nil {
@@ -55,7 +58,7 @@ func (ocr ocrApi) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 	api := tesseract.NewTessBaseAPI()
 	defer api.Delete()
 	// 模型数据在Linux下不会读取当前目录，暂时不处理
-	// 需要指定模型数据的路径，否则会读取默认人路径或环境变量 TESSDATA_PREFIX
+	// 需要指定模型数据的路径，否则会读取默认的路径或环境变量 TESSDATA_PREFIX
 	err = api.Init3("", v.Language)
 	if err != nil {
 		rw.WriteHeader(500)

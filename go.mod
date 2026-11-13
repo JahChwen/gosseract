@@ -1,5 +1,5 @@
-module github.com/SakuOtonashi/gosseract
+module github.com/JahChwen/gosseract
 
-go 1.17
+go 1.27.3
 
-require github.com/google/uuid v1.3.0
+require github.com/google/uuid v1.6.0
